@@ -1,0 +1,91 @@
+JENKINS CI/CD PIPELINE – MANUAL BUILD
+
+Step 1: Install Java and Jenkins
+
+sudo apt update
+sudo apt install openjdk-21-jdk -y
+
+ls
+sudo rm jenkins.war
+sudo rm -rf ~/.jenkins
+
+wget https://get.jenkins.io/war-stable/latest/jenkins.war
+
+java -jar jenkins.war --httpPort=8087
+
+Open browser:
+http://localhost:8087
+
+Unlock Jenkins using:
+cat ~/.jenkins/secrets/initialAdminPassword
+
+Step 2: Install ngrok (for webhook connection)
+
+sudo apt update
+sudo apt install snapd -y
+sudo snap install ngrok
+
+Run ngrok:
+ngrok http 8082
+
+Webhook URL format:
+http://<ngrok-url>/github-webhook/
+
+Step 3: Create Repository in GitHub
+
+Create a repository and add the following files.
+
+script.sh
+
+#!/bin/bash
+echo "Hello from Jenkins Pipeline"
+
+Jenkinsfile
+
+pipeline {
+agent any
+
+stages {  
+
+    stage('Clone Repository') {  
+        steps {  
+            git url: 'https://github.com/username/jenkins-simple-demo.git', branch: 'main'  
+        }  
+    }  
+
+    stage('Run Script') {  
+        steps {  
+            sh 'chmod +x script.sh'  
+            sh './script.sh'  
+        }  
+    }  
+
+}  
+
+}
+
+Step 4: Create Pipeline in Jenkins
+
+Open Jenkins Dashboard
+Click New Item
+Enter project name
+Select Pipeline
+
+Pipeline configuration:
+
+Pipeline → Pipeline script from SCM
+SCM → Git
+Repository URL → GitHub repo link
+Branch → main
+Script Path → Jenkinsfile
+
+Step 5: Run Build
+
+Click Build Now
+
+Build result:
+Green → Success
+Red → Failure
+
+Note:
+Webhook is used to automatically trigger Jenkins build when code changes occur in the GitHub repository.
