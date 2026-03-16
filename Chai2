@@ -1,0 +1,113 @@
+program 1
+------------------------------------------------------
+git config --global user.name "usernameislol12"
+git config --global user.email "usernameislol25@gmail.com"
+git config --list
+mkdir blb
+cd blb
+git init
+touch hi.txt
+git status
+nano hi.txt
+git add .
+git commit -m "initial commit"
+git log
+git remote add origin url
+git remote -v
+git branch
+git branch -M main
+git push -u origin main
+git clone url
+git reset --hard
+-------------------------------------------------------------------
+
+program 2
+-------------------------------------------------------------------
+
+
+git config --global user.name "usernameislol12"
+git config --global user.email "usernameislol25@gmail.com"
+git config --list
+mkdir hello
+cd hello
+git init
+git clone https://github.com/usernameislol12/program2.git
+cd program2
+nano hi.txt
+git add hi.txt
+git commit -m "initial commit"
+git branch
+git push origin main
+git branch feature-branch
+git checkout feature-branch
+nano hihello.txt
+git add hihello.txt
+git commit -m "initial commit"
+git branch
+git push origin feature-branch
+
+
+mkdir merge-conflict
+cd merge-conflict
+git init
+echo "version1">file1.txt
+git add .
+git commit -m "inital commit"
+git checkout -b feature
+echo "feature version">file1.txt
+git commit -am "feature commit"
+git checkout master
+echo "master version">file1.txt
+git commit -am "master commit"
+git merge feature
+cat file1.txt
+echo "hello world">file1.txt
+git add .
+git merge feature
+git commit -m "conflict solved"
+git merge feature
+git log
+
+-------------------------------------------------------------------
+
+program 3
+-------------------------------------------------------------------
+
+sudo apt install openjdk-21-jdk -y
+wget https://get.jenkins.io/war-stable/latest/jenkins.war
+java -jar jenkins.war --httpPort=8080
+
+sudo apt install snapd
+sudo snap install ngrok
+ngrok http 8080
+
+
+script.sh
+
+echo "hello world!"
+echo "Jenkins runed successfully!"
+
+Jenkinsfile
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone') {
+            steps {
+                git url: "https://github.com/username/repository.git", branch: "main"
+            }
+        }
+
+        stage('Run Script') {
+            steps {
+                sh 'chmod +x script.sh'
+                sh './script.sh'
+            }
+        }
+
+    }
+}
+
+-----------------------------------------------------------------------------
